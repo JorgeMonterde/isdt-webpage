@@ -46,7 +46,7 @@ app.use('/auth',authRoutes); // Auth routes
 app.use(error404);
 
 const server = app.listen(port, () => {
-    console.log(`****Conected in port ${port}****`);
+    console.log(`****Connected in port ${port}****`);
 })
 
 module.exports = server;
