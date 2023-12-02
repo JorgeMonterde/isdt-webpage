@@ -1,0 +1,105 @@
+DDBB:
+
+- SQL (Postgres ---> ElephantSQL):
+	- users
+		_user_id (PK)
+		_email
+		_username
+		_firstname
+		_surname
+		_hashed_password
+		_admin
+		_logged
+
+	- comments
+		_user_id (FK)
+		_comment_id (PK)
+        _article_id (FK)
+        _date
+        _content
+        _response_for ("comment_id") (---> if not: "0")
+
+	- articles
+		_article_id (PK)
+		_user_id (FK)
+        _title
+        _content
+        _date
+        _image_url (related with *STORAGE*)
+        -keywords
+
+    - items
+		_item_id (PK)
+		_user_id (FK)
+        _name
+        _year
+        _description
+        _type
+        -keywords
+		_image_url (related with *STORAGE*)
+
+
+ENDPOINTS:
+
+/api
+    - /user: 
+        get - user info (by username/email, all(for admin))
+        post - create user
+        put - edit user info (profile)
+		patch - edit partially
+        delete - delete user
+
+    - /comment: 
+        get - comments info (all, by article_id)
+        post - create a comment
+        put - edit comment
+		patch - edit partially
+        delete - delete comment
+
+    - /articles:
+        get - articles info (all, by keyword)
+        post - add article
+        put - edit article (just its user)
+		patch - edit partially
+        delete - delete article (from project or collection)
+
+	- /items:
+		get - items info (all, by keyword, by title, by year, ...)
+		post - add item
+		put - edit item
+		patch - edit partially
+		delete - delete item
+
+/auth
+
+	- /email (Email + password)
+		- /signup:
+			post - sign up sending a body with email, password, username, first name, second name...)
+		- /login:
+			post - log in sending a body with email and password
+		- /recoverpassword/:email
+			get - 
+		- /resetpassword
+			put - 
+
+	- /logout
+		- Email + Password + Recover password
+
+	- /google (Google OAuth + Passport)
+		- /google:
+			get - prompts google accounts
+		- /callBack:
+			get - redirect to failure OR creates token
+		- /failure:
+			get - in case of failure
+
+
+
+
+
+
+Notes*
+	- In server's "package.json", add commands to start automatically the app.
+	- In client's "package.json" add "proxy: "http://localhost:xxxxxx" to avoid extra info while doing the http requests.
+
+
